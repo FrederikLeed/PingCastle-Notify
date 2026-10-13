@@ -248,6 +248,19 @@ Or combine with noscan mode:
 
 #### Deploy a Scheduled Task
 
+Run `Register-ScheduledTask.ps1` from an elevated PowerShell to create the task automatically (as SYSTEM by default):
+
+```powershell
+.\Register-ScheduledTask.ps1                       # weekly, Monday 08:00, as SYSTEM
+.\Register-ScheduledTask.ps1 -Daily -At 02:00 -RunNow
+.\Register-ScheduledTask.ps1 -User 'DOMAIN\svc-pingcastle$'   # gMSA
+.\Register-ScheduledTask.ps1 -Unregister
+```
+
+On a member server, SYSTEM authenticates to AD as the computer account, which is enough for a PingCastle healthcheck. Restrict the folder (it holds `.env`) to SYSTEM and Administrators.
+
+To set it up manually with a service account instead:
+
 <details>
 <summary>:arrow_forward: Make sure the scan is automatic and run every day</summary>
 On your Windows Server go to
